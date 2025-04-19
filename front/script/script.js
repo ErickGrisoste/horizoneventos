@@ -35,3 +35,41 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 });
+
+document.addEventListener("DOMContentLoaded", function () {
+    const form = document.getElementById("loginForm");
+
+    form.addEventListener("submit", async function (e) {
+        e.preventDefault();
+
+        const email = document.getElementById("email").value;
+        const senha = document.getElementById("senha").value;
+
+        const loginData = {
+            email: email,
+            senha: senha
+        };
+
+        try {
+            const response = await fetch("http://localhost:8080/auth/login", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(loginData)
+            });
+
+            const sucesso = await response.json();
+
+            if (sucesso) {
+                alert("Login bem-sucedido!");
+                window.location.href = "eventos.html";
+            } else {
+                alert("Email ou senha incorretos.");
+            }
+        } catch (error) {
+            console.error("Erro ao fazer login:", error);
+            alert("Erro ao conectar com o servidor.");
+        }
+    });
+});
