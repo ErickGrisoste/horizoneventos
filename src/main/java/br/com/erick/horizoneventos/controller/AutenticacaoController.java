@@ -1,5 +1,6 @@
 package br.com.erick.horizoneventos.controller;
 
+import br.com.erick.horizoneventos.dto.LoginDTO;
 import br.com.erick.horizoneventos.dto.UsuarioDTO;
 import br.com.erick.horizoneventos.model.Usuario;
 import br.com.erick.horizoneventos.service.EventoService;
@@ -16,6 +17,11 @@ public class AutenticacaoController {
     @PostMapping("/registrar")
     public void cadastrarUsuario(@RequestBody UsuarioDTO usuarioDTO){
         Usuario usuario = service.cadastrarUsuario(usuarioDTO);
+    }
+
+    @PostMapping("/login")
+    public Usuario login(@RequestBody LoginDTO loginDTO){
+        return service.autenticarUsuario(loginDTO);
     }
 
 }
